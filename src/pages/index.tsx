@@ -11,13 +11,10 @@ export default function Home() {
   return (
     <div className='min-h-screen bg-violet-500 w-full  '>
       <Wrapper>
-        
-      <Navbar />
-      <Featured/>
-      <Footer />
+        <Navbar />
+        <Featured />
+        <Footer />
       </Wrapper>
     </div>
-
-    
   )
 }
