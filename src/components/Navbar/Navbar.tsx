@@ -1,11 +1,10 @@
 import React from "react";
-// import '../../styles/global.css'
+
 type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    // <header className="bg-indigo-900 h-12" >
-    <header className="sticky top-0 z-[1] mx-auto  flex w-full max-w-7xl flex-wrap items-center justify-between border-b border-gray-100 bg-background p-[1em] font-sans font-bold uppercase text-text-primary backdrop-blur-[100px] dark:border-gray-800 dark:bg-d-background dark:text-d-text-primary">
+    <header className="sticky top-0 z-[1] mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between border-b border-gray-100 bg-background p-[1em] font-sans font-bold uppercase text-text-primary backdrop-blur-[100px] dark:border-gray-800 dark:bg-d-background dark:text-d-text-primary shadow-lg rounded-lg">
       <a href="#" className="flex items-center flex-shrink-0 text-white mr-6">
         <svg
           className="fill-current h-8 w-8 mr-2"
@@ -26,25 +25,22 @@ const Navbar = (props: Props) => {
             d="M27 12C17.6 12 9.9 18.1 7.1 26.5c.4-.1.8-.1 1.2-.1 5.5 0 10 4.5 10 10s-4.5 10-10 10c-1.1 0-2.2-.2-3.2-.6C12.9 45.1 19.1 51 27 51c9.4 0 17.1-6.1 19.9-14.5-.4.1-.8.1-1.2.1-5.5 0-10-4.5-10-10s4.5-10 10-10c1.1 0 2.2.2 3.2.6C41.1 8.9 34.9 3 27 3z"
             fill="#4D00B4"
           />
-          <path
-            d="M27 18c-5.5 0-10 4.5-10 10s4.5 10 10 10c1.1 0 2.2-.2 3.2-.6C32.9 45.1 26.7 51 19 51c-9.4 0-17.1-6.1-19.9- 18.
-            5.4.4-.8.4-1.2.4-5.5 0-10-4.5-10-10s4.5-10 10-10c1.1 0 2.2.2 3.2.6C12.9 8.9 19.1 3 27 3c5.5 0 10 4.5 10 10 0 .4 0 .8-.1 1.2C33.1 18.2 30.1 18 27 18z"
+          {/* <path
+            d="M27 18c-5.5 0-10 4.5-10 10s4.5 10 10 10c1.1 0 2.2-.2 3.2-.6C32.9 45.1 26.7 51 19 51c-9.4 0-17.1-6.1-19.9- 18. 5.4.4-.8.4-1.2.4-5.5 0-10-4.5-10-10s4.5-10 10-10c1.1 0 2.2.2 3.2.6C12.9 8.9 19.1 3 27 3c5.5 0 10 4.5 10 10 0 .4 0 .8-.1 1.2C33.1 18.2 30.1 18 27 18z"
             fill="#4D00B4"
-          />
+          /> */}
         </svg>
-        <span className="font-semibold text-xl tracking-tight">
-          Sports Vision
-        </span>
+        <span className="font-semibold text-xl tracking-tight">Sports Vision</span>
       </a>
-      <ul className="flex justify-between text-white w-1/4">
+      <ul className="flex justify-between text-white w-full md:w-auto">
         <li>
-          <a href="#">Home</a>
+          <a href="#" className="block px-4 py-2">Home</a>
         </li>
         <li>
-          <a href="#">About Us</a>
+          <a href="#" className="block px-4 py-2">About Us</a>
         </li>
         <li>
-          <a href="#">Contact Us</a>
+          <a href="#" className="block px-4 py-2">Contact Us</a>
         </li>
       </ul>
     </header>
@@ -52,5 +48,3 @@ const Navbar = (props: Props) => {
 };
 
 export default Navbar;
-
-//aspect-square sticky top-0 z-[1] mx-auto  flex w-full max-w-7xl flex-wrap items-center justify-between border-b border-gray-100 bg-background p-[2em] font-sans font-bold uppercase text-text-primary backdrop-blur-[100px] dark:border-gray-800 dark:bg-d-background dark:text-d-text-primary

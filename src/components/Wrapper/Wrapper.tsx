@@ -6,7 +6,7 @@ interface WrapperProps {
 
   const Wrapper: React.FC<WrapperProps> = ({ children }) => {
   return (
-    <div>{children}</div>
+    <div className='p-16'>{children}</div>
   )
 }
 
