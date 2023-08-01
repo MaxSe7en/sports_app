@@ -51,7 +51,7 @@ const Featured = (props: Props) => {
                 <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel nibh sed elit efficitur eleifend.</p>
               </div>
 
-              More news items...
+              More news items...no be easy
 
             </div>
 
