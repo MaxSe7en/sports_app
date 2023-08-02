@@ -7,10 +7,6 @@ const Featured = (props: Props) => {
   return (
 
     <>
-
-
-
-
       <div className="flex flex-col h-screen">
 
 
