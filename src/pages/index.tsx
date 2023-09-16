@@ -15,11 +15,11 @@ export default function Home() {
     console.log('Button clicked!');
   };
   return (
-    <div className='min-h-screen bg-violet-500 w-full  '>
+    <div className='min-h-screen  '>
       <Wrapper>
-        <Navbar />
+        {/* <Navbar /> */}
         <HomePage />
-        <Footer />
+        {/* <Footer /> */}
       </Wrapper>
     </div>
   )
