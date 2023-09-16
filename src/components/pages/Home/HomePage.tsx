@@ -88,6 +88,10 @@ const HomePage = (props: Props) => {
 
   // [row, col, value]
   const hhh = [
+    [0, 0, "S"],
+    [1, 0, "S"],
+    [2, 0, "S"],
+    [3, 0, "S"],
     [0, 1, "B"],
     [1, 1, "B"],
     [2, 1, "B"],
@@ -190,11 +194,11 @@ const HomePage = (props: Props) => {
                       // color: values[0] === cell ? firstValueColor : "blue",
                     }}>
                     {/* {hhh?.[0]?.[0] == row_index && hhh?.[0]?.[1] == cell_index && hhh?.[0]?.[2] == "B" ? "B" : ""} */}
-                    {data.map((_, index) => (
+                    {hhh.map((_, index) => (
                       <h1 key={index}
-                        style={{ color: data?.[index]?.[2] == "B" ? 'red' : 'blue' }}
+                        style={{ color: hhh?.[index]?.[2] == "B" ? 'red' : 'blue' }}
                       >
-                        {data?.[index]?.[0] == row_index && data?.[index]?.[1] == cell_index && data?.[index]?.[2]}
+                        {hhh?.[index]?.[0] == row_index && hhh?.[index]?.[1] == cell_index && hhh?.[index]?.[2]}
 
                       </h1>
                     ))}
