@@ -1,15 +1,14 @@
-import Featured from '@/components/Featured/Featured'
-import React, { useState } from 'react'
+import Featured from "@/components/Featured/Featured";
+import React, { useState } from "react";
 
-type Props = {}
+type Props = {};
 
 const HomePage = (props: Props) => {
-
   const grid = [
     ["B", "S", "B", "S", "B", "S", "B", "S", "B", "S", "B"],
-    ["B", "S", "", "S", "B", "S", "B", "S", "B", "S", ""],
+    ["B", "S", "", "S", "B", "S", "B", "S", "B", "S",""],
     ["B", "S", "", "S", "B", "S", "", "", "B", "", ""],
-    ["B", "S", "", "S", "B", "S", "", "", "B", "", "",],
+    ["B", "S", "", "S", "B", "S", "", "", "B", "", ""],
     ["B", "S", "", "S", "B", "S", "", "", "B", "", ""],
     ["B", "", "", "S", "", "", "", "", "", "", ""],
     ["B", "", "", "S", "", "", "", "", "", "", ""],
@@ -20,12 +19,13 @@ const HomePage = (props: Props) => {
     ["", "", "", "", "", "", "", "", "", "", ""],
   ];
 
+  const maxGridLength = grid.reduce((acc, curr) => Math.max(acc, curr.length), 0);
 
   const grid2 = [
     ["B", "S", "B", "S", "B", "S", "B", "S", "B", "S", "B"],
     ["B", "S", "", "S", "B", "S", "B", "S", "B", "S", ""],
     ["B", "", "", "S", "B", "S", "", "", "B", "", ""],
-    ["B", "", "", "S", "B", "S", "", "", "B", "", "","KK"],
+    ["B", "", "", "S", "B", "S", "", "", "B", "", "", "KK"],
     ["B", "", "", "S", "B", "B", "B", "B", "B", "", ""],
     ["B", "", "", "S", "S", "S", "S", "S", "B", "", ""],
     ["", "", "", "", "", "", "", "", "", "", ""],
@@ -38,53 +38,48 @@ const HomePage = (props: Props) => {
 
   let abc: any = [
     // [0, 0],
-  ]
+  ];
   // console.log(abc.length)
-
 
   const ifExists = (i: any, j: any) => {
     // await checkDepth(i, j)
-    if (i > 5) return [true]
+    if (i > 5) return [true];
 
     // console.log(abc)
     if (abc.length === 0) return [false];
-    return abc.map((arr: any) => arr[0] === i && arr[1] === j)
-  }
+    return abc.map((arr: any) => arr[0] === i && arr[1] === j);
+  };
 
-  function checkDepth(i: any) {
-    // console.log("iiiiiiiii",i)
-    if (i > 5) return [true]
-
-  }
+  // function checkDepth(i: any) {
+  //   // console.log("iiiiiiiii",i)
+  //   if (i > 5) return [true];
+  // }
 
   function test() {
-    for (let i = 0; i < 11; i++) {
-      for (let j = 0; j < grid.length; j++) {
-
-        // if (i == 6 && j === 0) {
-          if (grid[j][i] === "" || grid[j][i] === undefined) {
-            continue;
-          }
-          console.log(grid[i][j], i, j)
-          console.log(ifExists(i, j)[0])
-          if (ifExists(i, j)[0] === false) {
-             abc.push([i, j, grid[i][j]])
-             } 
-          else {
-            console.log("else")
-            let remainder = i - 5
-            abc.push([5, remainder, grid[i][j]])
-          }
+    for (let rows = 0; rows < 11; rows++) {
+      for (let columns = 0; columns < grid.length; columns++) {
+        // if (i == 6 && columns === 0) {
+        // if (grid[columns][rows] === "") {
+        //   // continue;
         // }
-
+        console.log([rows, columns, grid[rows]?.[columns]]);
+        // console.log(ifExists(rows, columns)[0]);
+        // if (ifExists(i, columns)[0] === false) {
+        // abc.push([rows, columns, grid[rows][columns]]);
+        // }
+        // else {
+        //   console.log("else");
+        //   let remainder = i - 5;
+        //   abc.push([5, remainder, grid[i][j]]);
+        // }
+        // }
       }
     }
-    console.log("abccc", abc)
-    return abc
+    // console.log("abccc", abc);
+    return abc;
   }
 
   // B: 1, S: 2
-
 
   // [row, col, value]
   const hhh = [
@@ -331,18 +326,22 @@ const HomePage = (props: Props) => {
 ]
 
   // console.log(grid)
-  const [data,setData] = useState([])
+  const [data, setData] = useState([]);
   return (
-    <div >
-      <button onClick={() =>{ console.log(test())
-      
-      }}>test</button>
-      
+    <div>
+      {maxGridLength}
       <br />
       <br />
       {JSON.stringify(data)}
       <br />
       <br />
+      <button
+        onClick={() => {
+          console.log(test());
+        }}
+      >
+        test
+      </button>
       <button onClick={() => setData(abc)}>Data</button>
       <table>
         <tbody>
@@ -421,21 +420,18 @@ const HomePage = (props: Props) => {
                     {row_index == 6 && grid[row_index]?.[cell_index] === 'S' ? "" : row_index == 5 && cell_index == 7 && 
                        <h3 style={{ color: grid[6]?.[0] == "B" ? 'red' : 'blue' }}>S</h3>
                     } */}
-                    {/* {row_index == 5 && cell_index == 4 && "AMA"} */}
-                    {/* {grid[row_index]?.[cell_index]} */}
-                    { }
-                  </td>
-                </>
-
-              ))}
-
-            </tr>
-          ))}
-
+                        {/* {row_index == 5 && cell_index == 4 && "AMA"} */}
+                        {/* {grid[row_index]?.[cell_index]} */}
+                        {}
+                      </td>
+                    </>
+                  ))}
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
