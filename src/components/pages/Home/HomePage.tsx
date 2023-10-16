@@ -233,7 +233,7 @@ function analyzeDraw(drawNumbers: number[][], whatToAnalyze: string): {
     let oddEven, bigSmall, primeComposite, dragonTiger;
 
     if (whatToAnalyze === "sum") {
-      console.log("dsfkjksdafkhsadhfkhsdakhfklsdfklhsdaf")
+      // console.log("dsfkjksdafkhsadhfkhsdakhfklsdfklhsdaf")
       oddEven = getOddEven(ball);
       bigSmall = getBigSmallForSum(ball);
 
@@ -307,7 +307,7 @@ function buildTree(drawNumbers: number[][], whatToAnalyze: string, type: string 
       row = 5;
       col++;
     }
-    console.log("row", row, "col", col, "currentLetter", currentLetter);
+    // console.log("row", row, "col", col, "currentLetter", currentLetter);
     newItem = [row, col, currentLetter];
 
     let duplicate = tree.some(

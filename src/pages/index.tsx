@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <div className='min-h-screen  '>
       <Wrapper>
-        {/* <Navbar /> */}
-        <HomePage />
+        <Navbar />
+        {/* <HomePage /> */}
         {/* <Footer /> */}
       </Wrapper>
     </div>
