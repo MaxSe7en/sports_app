@@ -1,0 +1,369 @@
+.container {
+    background: #ffffff;
+    box-sizing: border-box;
+    /* width: 1100px; */
+  }
+  .tre {
+    width: 100%;
+  }
+  .flow {
+    display: flex;
+    gap: 15px;
+    padding: 5px;
+    color: white;
+    font-size: 14px;
+  }
+  #main_nv {
+    display: flex;
+  }
+  .ccg {
+    font-weight: 500;
+  }
+  .uio {
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    white-space: nowrap;
+  }
+  .overflow {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgb(0, 75, 155);
+  }
+  .flop {
+    display: flex;
+    box-sizing: border-box;
+    gap: 10px;
+    margin-left: 4px;
+  }
+  .all {
+    border: none;
+    padding: 10px;
+    height: 33px;
+    border-radius: 5px;
+    color: rgb(255, 136, 0);
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 65px;
+    margin-top: 24px;
+  }
+  .borp1,
+  .borp2 {
+    display: none;
+  }
+  .gopy {
+    display: flex;
+    gap: 15px;
+    height: fit-content;
+    margin-top: 22px;
+  }
+  .borp1 {
+    width: 120px;
+    height: 35px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background: none;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .borp2 {
+    cursor: pointer;
+    width: 120px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background: rgb(0, 119, 255);
+    font-weight: bold;
+    color: #ffffff;
+  }
+  .glop {
+    width: 110px;
+    display: flex;
+    gap: 7px;
+    height: fit-content;
+    padding: 5px;
+    margin: 5px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .kju {
+    font-size: 12px;
+    font-weight: 900;
+    text-wrap: nowrap;
+    color: #e77000;
+  }
+  .contain {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    border-radius: 10px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #e3e3e3;
+    margin-top: 10px;
+  }
+  .dashes {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 28.5vw;
+    height: 100%;
+  }
+  .modal_container {
+    color: #ffffff;
+  }
+  
+  .nv {
+    font-weight: 500;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .form {
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .places {
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    /* border: 1px solid red; */
+    font-size: 13px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .drt {
+    color: red;
+    white-space: nowrap;
+  }
+  .drtx {
+    color: blue;
+    white-space: nowrap;
+  }
+  .grew {
+    display: flex;
+    justify-content: space-between;
+  }
+  .derivedRoad {
+    display: flex;
+    width: 100px;
+    gap: 12px;
+  }
+  .jkuyt {
+    width: 198px;
+    user-select: none;
+    height: 120px;
+    border-radius: 2px;
+    padding: 10px 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    background-color: #eef6ff;
+  }
+  .jgddwq {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100px;
+    justify-content: start;
+  }
+  .jgddwqs {
+    border: none;
+    border-radius: 7px;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  
+  .inpo {
+    width: 200%;
+    height: 15px;
+    border-radius: 5px;
+    border: none;
+    background: white;
+    padding: 6px;
+    border: 1px solid rgb(182, 182, 182);
+    outline-color: rgb(255, 136, 0);
+    margin-top: 1px;
+    padding: 10px;
+  }
+  .nn2{
+    margin-left: 2.1rem;
+  }
+  
+  .nnn {
+    width: 40px;
+    font-size: 10px;
+    display: flex;
+    white-space: nowrap;
+    /* justify-content: center; */
+  }
+  #nn {
+    width: 50px;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+    white-space: nowrap;
+  }
+  #oo {
+    color: orange;
+    font-weight: 900;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  .grew2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+  }
+  
+  .derivedRoadColors {
+    margin: 0 1px;
+    box-sizing: unset;
+  }
+  
+  .sectionOneHeader {
+    display: flex;
+    border: 1px solid gray;
+    margin-left: -40px;
+    border-radius: 5px;
+    margin-top: 6px;
+    padding-top: 6px;
+    padding-left: 5px;
+    padding-right: 12px;
+    cursor: pointer;
+  }
+  
+  .road_bet {
+    margin-left: -4rem;
+  }
+  .main {
+    display: flex;
+    /* border: 1px solid gray; */
+    gap: 8px;
+    /* border: 1px solid gray; */
+    /* margin-bottom: 10px; */
+    padding: 2px 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-top: 15px;
+  }
+  
+  .items {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 5px;
+    margin-bottom: -1rem;
+  }
+  
+  .derivedRoadSectionOne {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .buttonText {
+    flex: 1;
+    text-align: center;
+    align-self: center;
+  }
+  
+  .buttonInputContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buttonInput {
+    border: none;
+    background: transparent;
+    color: inherit;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .selected {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .flowmainbox {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 200px;
+    box-sizing: border-box;
+  }
+  /* .flowmainbox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 200px;
+    box-sizing: border-box;
+  } */
+  
+  .graphWrapper {
+    width: 100%;
+  }
+  .inbox_match {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 5px;
+  }
+  .shiftdown {
+    display: flex;
+    align-items: center;
+  }
+  .flowise {
+    margin-top: 10px;
+    background-color: white;
+    height: 50vh;
+    border-radius: 10px;
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .dashes {
+      width: 44vw;
+    }
+  }
+  

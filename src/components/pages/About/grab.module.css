@@ -1,0 +1,44 @@
+.scrollcontaioner {
+  overflow-x: auto;
+  /* width: 100px; */
+  /* border: 1px solid; */
+  margin-right: 10px;
+  user-select: none;
+  cursor: move; /* Default cursor style */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.derivedRoadContainer {
+  zoom: 0.7;
+  -moz-transform: scale(0.7);
+}
+
+.scrollcontaioner2 {
+  overflow-x: auto;
+  width: 100%;
+  /* border: 1px solid; */
+  margin-right: 10px;
+  user-select: none;
+  cursor: move; /* Default cursor style */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* -moz-transform: scale(2);
+  zoom: 1.4;
+  overflow-y: hidden; */
+}
+
+.scrollcontaioner3 {
+  overflow-x: auto;
+  width: 100%;
+  /* border: 1px solid; */
+  margin-right: 10px;
+  user-select: none;
+  cursor: move; /* Default cursor style */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollcontaioner::-webkit-scrollbar {
+  display: none;
+}

@@ -6,6 +6,7 @@ import Featured from '@/components/Featured/Featured'
 import Button from '@/components/UIComponents/Buttons/Button'
 import Buttons from '@/components/UIComponents/Buttons/Buttons'
 import HomePage from '@/components/pages/Home/HomePage'
+import RoadBet from '@/components/pages/About/About'
 // import '../styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,7 +18,8 @@ export default function Home() {
   return (
     <div className='min-h-screen  '>
       <Wrapper>
-        <Navbar />
+      <RoadBet />
+        {/* <Navbar /> */}
         {/* <HomePage /> */}
         {/* <Footer /> */}
       </Wrapper>
