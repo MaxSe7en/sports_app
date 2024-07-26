@@ -1041,103 +1041,27 @@ interface DerivedRoadResult {
 // Helper function to get the last array without 'A' in a specific column
 
 // Helper function to update a road object based on certain conditions
-function updateRoadObj(
-  roadObj: Record<string, string>,
-  nextLetter: string,
-  condition: boolean
-) {
-  if (condition) {
-      roadObj[nextLetter] = "R";
-  } else {
-      roadObj[nextLetter] = "B";
-  }
-}
+// function updateRoadObj(
+//   roadObj: Record<string, string>,
+//   nextLetter: string,
+//   condition: boolean
+// ) {
+//   if (condition) {
+//       roadObj[nextLetter] = "R";
+//   } else {
+//       roadObj[nextLetter] = "B";
+//   }
+// }
 
 // Helper function to push a letter into an array based on conditions
-function pushLetter(
-  arr: string[],
-  roadObj: Record<string, string>,
-  currentLetter: string,
-  nextLetter: string
-) {
-  if (roadObj && Object.keys(roadObj)[0] === currentLetter) {
-      arr.push(roadObj[currentLetter]);
-  } else {
-      const firstValue = roadObj[nextLetter] === "R" ? "B" : "R";
-      arr.push(firstValue);
-  }
+
+
+function derivedRoad(tree, col){
+
 }
 
-// Main function to derive road data
-function derivedRoad(
-  tree: [number, number, string][],
-  col: number,
-  {bigEyeRoadObj,
-      smallRoadObj,
-      cockroachObj,
-      bigEyeBoyArr,
-      smallRoadArr,
-      cockroachArr}
-) {
-  // const bigEyeRoadObj: Record<string, string> = {};
-  // const smallRoadObj: Record<string, string> = {};
-  // const cockroachObj: Record<string, string> = {};
 
-  // const bigEyeBoyArr: string[] = [];
-  // const smallRoadArr: string[] = [];
-  // const cockroachArr: string[] = [];
 
-  const getLastArrayWithCol2Var = getLastArrayWithColWithoutA(tree, col);
-  const currentLetterCurrentCol = getLastArrayWithCol2Var?.[2] || "";
-  const nextLetterToBreakColumn = getLastArrayWithCol2Var ? (check[getLastArrayWithCol2Var[2]]) : "";
-
-  const bigEyeBoy = getLastArrayWithColWithoutA(tree, col - 1);
-  const smallRoad = getLastArrayWithColWithoutA(tree, col - 2);
-  const cockroach = getLastArrayWithColWithoutA(tree, col - 3);
-
-  if (getLastArrayWithCol2Var && bigEyeBoy) {
-      if (currentLetterCurrentCol === "A") {
-          bigEyeBoyArr.push(bigEyeRoadObj[currentLetterCurrentCol] || "");
-      } else if (getLastArrayWithCol2Var[0] === bigEyeBoy[0]) {
-          updateRoadObj(bigEyeRoadObj, nextLetterToBreakColumn, true);
-      } else {
-          updateRoadObj(bigEyeRoadObj, nextLetterToBreakColumn, false);
-          pushLetter(bigEyeBoyArr, bigEyeRoadObj, currentLetterCurrentCol, nextLetterToBreakColumn);
-      }
-  }
-
-  if (getLastArrayWithCol2Var && smallRoad) {
-      if (currentLetterCurrentCol === "A") {
-          bigEyeBoyArr.push(smallRoadObj[currentLetterCurrentCol] || "");
-      } else if (getLastArrayWithCol2Var[0] === smallRoad[0]) {
-          updateRoadObj(smallRoadObj, nextLetterToBreakColumn, true);
-      } else {
-          updateRoadObj(smallRoadObj, nextLetterToBreakColumn, false);
-          pushLetter(smallRoadArr, smallRoadObj, currentLetterCurrentCol, nextLetterToBreakColumn);
-      }
-  }
-
-  if (getLastArrayWithCol2Var && cockroach) {
-      if (currentLetterCurrentCol === "A") {
-          bigEyeBoyArr.push(cockroachObj[currentLetterCurrentCol] || "");
-      } else if (getLastArrayWithCol2Var[0] === cockroach[0]) {
-          updateRoadObj(cockroachObj, nextLetterToBreakColumn, true);
-      } else {
-          updateRoadObj(cockroachObj, nextLetterToBreakColumn, false);
-          pushLetter(cockroachArr, cockroachObj, currentLetterCurrentCol, nextLetterToBreakColumn);
-      }
-  }
-  console.log("indexof ssssssssssh ==========>xx", bigEyeRoadObj, smallRoadObj,
-    cockroachObj);
-  return {
-      bigEyeRoadObj,
-      smallRoadObj,
-      cockroachObj,
-      bigEyeBoyArr,
-      smallRoadArr,
-      cockroachArr
-  };
-}
 
 function derivedRoadsss(
   tree: [number, number, string][],
