@@ -129,7 +129,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
     const canvas = canvasRef.current;
 
     if (canvas) {
-      drawGrid(canvas);
+      drawGrid(canvas); 
     }
   }, [colWidth, drawGrid]);
 
@@ -249,7 +249,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
         // drawAnimatedSvgOnCanvas(canvas, svgDataUrl, x, y, svgWidth, svgHeight);
       }
     }
-  }, [colWidth, isBlinking]);
+  }, [colWidth, isBlinking, roadForms]);
 
   return (
     <div
@@ -267,7 +267,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
       className={`${styles.scrollcontaioner} ${styles.derivedRoadContainer}`}
     >
       {/* <button>Start Blinking{JSON.stringify(isBlinking)}</button> */}
-
+      {/* {JSON.stringify(cellData)} */}
       <br />
       <canvas ref={canvasRef} width={width} height={height}></canvas>
     </div>
