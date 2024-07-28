@@ -22,12 +22,14 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   roadFormsColor,
   roadForms,
 }) => {
+  // console.log("form place after within",data)
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const cellData = data?.[form + "|" + card]?.tree || [];
+  // const cellData = data?.[form + "|" + card]?.tree || [];
+  const cellData = useMemo(() => data?.[form + "|" + card]?.tree || [], [data, form, card]);
   const height = 120;
   let x: any;
   let y: any;
@@ -38,7 +40,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   const minRequiredWidth = useMemo(() => {
     const minWidth = colWidth * 20 + 40; // 20px per item plus 40px for extra columns
     return minWidth;
-  }, [cellData, colWidth]);
+  }, [colWidth]);
 
   const width = colWidth < 6 ? 200 : minRequiredWidth;
 
@@ -88,7 +90,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
     if (colWidth > 6 && wrapperRef.current) {
       wrapperRef.current.scrollLeft = wrapperRef.current.scrollWidth;
     }
-  }, [data]);
+  }, [colWidth, data]);
 
   const onMouseUp = () => {
     setIsDragging(false);
@@ -121,7 +123,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
         ctx.stroke();
       }
     };
-  }, [colWidth]);
+  }, [width]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -129,7 +131,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
     if (canvas) {
       drawGrid(canvas);
     }
-  }, [colWidth]);
+  }, [colWidth, drawGrid]);
 
   // function drawBlinkingCircle() {
   //   const canvas: any = canvasRef.current;

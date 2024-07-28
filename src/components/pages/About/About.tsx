@@ -58,7 +58,7 @@ function RoadBet() {
       sortedPlaceCheckBox[key] = placeCheckBox[key];
     });
 
-    return sortedPlaceCheckBox;
+    return sortedPlaceCheckBox; 
   }
   const [drawNumbers, setDrawNumbers] = useState([]);
   const [timeLeft, setTimeLeft] = useState(60);
@@ -66,7 +66,7 @@ function RoadBet() {
     const fetchDrawNumbers = async () => {
       try {
         const response = await fetch(
-          "http://192.168.1.40/task/apis/road_draws.php?lottery_id=1"
+          "https://www.easyopen1573.com/task/apis/road_draws.php?lottery_id=1"
         );
         if (response.ok) {
           const data = await response.json();
@@ -716,16 +716,17 @@ export function buildTree(
     newItem = [row, col, img["indexOfA"].includes(i) ? "A" : currentLetter];
 
     tree.push(newItem);
-    derivedRoad(tree as [number, number, string][], whenColIncreaseByMaxRows, {bigEyeRoadObj,
+    derivedRoad(tree as [number, number, string][], whenColIncreaseByMaxRows, {
+      bigEyeRoadObj,
       smallRoadObj,
       cockroachObj,
       bigEyeBoyArr,
       smallRoadArr,
-      cockroachArr});
+      cockroachArr,
+    });
   });
 
-
-  const bigBoy = buildDerivedRoadTree(bigEyeBoyArr);
+  const bigBoy = buildDerivedRoadTree([...bigEyeBoyArr]);
   const smallRoad = { tree: [], colWidth: 1 }; //buildDerivedRoadTree(smallRoadArr);
   const cockroach = { tree: [], colWidth: 1 }; // buildDerivedRoadTree(cockroachArr);
   // console.log("colwidth: ccccc", col, tree);
@@ -984,7 +985,6 @@ interface DerivedRoadResult {
 //     cockroachArr: []
 //   };
 
-
 //   const letter = (val: string) => (val === "R" ? "B" : "R");
 
 //   const processRoad = (
@@ -1055,13 +1055,151 @@ interface DerivedRoadResult {
 
 // Helper function to push a letter into an array based on conditions
 
+function derivedRoad(
+  tree: any,
+  col: any,
+  {
+    bigEyeRoadObj,
+    smallRoadObj,
+    cockroachObj,
+    bigEyeBoyArr,
+    smallRoadArr,
+    cockroachArr,
+  }: any
+) {
+  let getLastArrayWithCol2Var = getLastArrayWithColWithoutA(tree, col);
+  let currentLetterCurrentCol =
+    getLastArrayWithCol2Var != null && getLastArrayWithCol2Var[2]; // Current letter in the current column
+  let nextLetterToBreakColumn =
+    getLastArrayWithCol2Var != null && check[getLastArrayWithCol2Var[2]]; // Next letter to break the column
 
-function derivedRoad(tree, col){
+  let letter = (val: string) => (val === "R" ? "B" : "R");
 
+  let updatedBigEyeRoadObj = { ...bigEyeRoadObj };
+  let updatedSmallRoadObj = { ...smallRoadObj };
+  let updatedCockroachObj = { ...cockroachObj };
+  let bigEyeBoy = getLastArrayWithColWithoutA(tree, col - 1); // for comparison purposes based on the bigEyeBoy rule
+  let smallRoad = getLastArrayWithColWithoutA(tree, col - 2); // for comparison purposes based on the smallRoad rule
+  let cockroach = getLastArrayWithColWithoutA(tree, col - 3); // for comparison purposes based on the cockroach rule
+  console.log(
+    "indexof ssssssssssh ==========>xx",
+    JSON.stringify(bigEyeRoadObj),
+    JSON.stringify(updatedBigEyeRoadObj),
+    JSON.stringify(currentLetterCurrentCol),
+    JSON.stringify(getLastArrayWithCol2Var),
+    JSON.stringify(nextLetterToBreakColumn),
+    JSON.stringify(bigEyeBoy),
+  );
+
+  if (getLastArrayWithCol2Var && bigEyeBoy) {
+    if (currentLetterCurrentCol === "A") {
+      bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
+    } else if (getLastArrayWithCol2Var[0] === bigEyeBoy[0]) {
+      if (!Object.keys(bigEyeRoadObj).length) {
+        bigEyeRoadObj[nextLetterToBreakColumn] = "R";
+      } else {
+        Object.keys(bigEyeRoadObj).forEach((key) => delete bigEyeRoadObj[key]);
+        bigEyeRoadObj[nextLetterToBreakColumn] = "R"; 
+      }
+      // bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
+      console.log("sssssssss not pushed")
+    } else {
+      if (!Object.keys(bigEyeRoadObj).length) {
+        bigEyeRoadObj[nextLetterToBreakColumn] = "B";
+      } else {
+        Object.keys(bigEyeRoadObj).forEach((key) => delete bigEyeRoadObj[key]);
+        bigEyeRoadObj[nextLetterToBreakColumn] = "B";
+      }
+
+      if (!isEmpty(updatedBigEyeRoadObj)) {
+        if (
+          bigEyeRoadObj &&
+          Object.keys(updatedBigEyeRoadObj)[0] === currentLetterCurrentCol
+        ) {
+          console.log("sssssssssss equal", updatedBigEyeRoadObj[currentLetterCurrentCol], JSON.stringify(bigEyeBoyArr))
+
+          bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
+          console.log("sssssssss equal and after", updatedBigEyeRoadObj[currentLetterCurrentCol], JSON.stringify(bigEyeBoyArr))
+
+        } else {
+          const firstValue = letter(Object.values(updatedBigEyeRoadObj)[0]); 
+          console.log("ssssssssssss firstValue before", firstValue, JSON.stringify(bigEyeBoyArr)) 
+          bigEyeBoyArr.push(firstValue);
+          console.log("sssssssss firstValue and after", firstValue, JSON.stringify(bigEyeBoyArr))
+        }
+      }else{
+        console.log("sssssssss it came here")
+      }
+    }
+  }else{
+    console.log("sssssssss it came here 2")
+  }
+  // console.log("indexof ssssssssssh ==========>xx", tree);
+
+  if (getLastArrayWithCol2Var && smallRoad) {
+    if (currentLetterCurrentCol === "A") {
+      bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
+    } else if (getLastArrayWithCol2Var[0] === smallRoad[0]) {
+      if (!Object.keys(smallRoadObj).length) {
+        smallRoadObj[nextLetterToBreakColumn] = "R";
+      } else {
+        Object.keys(smallRoadObj).forEach((key) => delete smallRoadObj[key]);
+        smallRoadObj[nextLetterToBreakColumn] = "R";
+      }
+    } else {
+      if (!Object.keys(smallRoadObj).length) {
+        smallRoadObj[nextLetterToBreakColumn] = "B";
+      } else {
+        Object.keys(smallRoadObj).forEach((key) => delete smallRoadObj[key]);
+        smallRoadObj[nextLetterToBreakColumn] = "B";
+      }
+
+      if (!isEmpty(updatedSmallRoadObj)) {
+        if (
+          smallRoadObj &&
+          Object.keys(updatedSmallRoadObj)[0] === currentLetterCurrentCol
+        ) {
+          smallRoadArr.push(updatedSmallRoadObj[currentLetterCurrentCol]);
+        } else {
+          const firstValue = letter(Object.values(updatedSmallRoadObj)[0]);
+          smallRoadArr.push(firstValue);
+        }
+      }
+    }
+  }
+
+  if (getLastArrayWithCol2Var && cockroach) {
+    if (currentLetterCurrentCol === "A") {
+      bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
+    } else if (getLastArrayWithCol2Var[0] === cockroach[0]) {
+      if (!Object.keys(cockroachObj).length) {
+        cockroachObj[nextLetterToBreakColumn] = "R";
+      } else {
+        Object.keys(cockroachObj).forEach((key) => delete cockroachObj[key]);
+        cockroachObj[nextLetterToBreakColumn] = "R";
+      }
+    } else {
+      if (!Object.keys(cockroachObj).length) {
+        cockroachObj[nextLetterToBreakColumn] = "B";
+      } else {
+        Object.keys(cockroachObj).forEach((key) => delete cockroachObj[key]);
+        cockroachObj[nextLetterToBreakColumn] = "B";
+      }
+
+      if (!isEmpty(updatedCockroachObj)) {
+        if (
+          cockroachObj &&
+          Object.keys(updatedCockroachObj)[0] === currentLetterCurrentCol
+        ) {
+          cockroachArr.push(updatedCockroachObj[currentLetterCurrentCol]);
+        } else {
+          const firstValue = letter(Object.values(updatedCockroachObj)[0]);
+          cockroachArr.push(firstValue);
+        }
+      }
+    }
+  }
 }
-
-
-
 
 function derivedRoadsss(
   tree: [number, number, string][],
