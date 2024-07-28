@@ -173,6 +173,7 @@ function RoadBet() {
     return sortedPlaceCheckBox;
   }
   const [drawNumbers, setDrawNumbers] = useState([]);
+  const [isShowLottery, setIsShowLottery] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
   // useEffect(() => {
   //   const fetchDrawNumbers = async () => {
@@ -745,7 +746,7 @@ function RoadBet() {
                                 // toggleBlinking={()=>toggleBlinking()}
                                 // toggleBlinking={toggleBlinking}
                                 roadFormsColor={roadFormsColor}
-                                roadForms={roadForms}
+                                roadForms={drawNumbers}
                               />
                               <DerivedRoads
                                 card={_key}
@@ -761,7 +762,7 @@ function RoadBet() {
                                 isBlinking={isBlinking}
                                 // toggleBlinking={toggleBlinking}
                                 roadFormsColor={roadFormsColor}
-                                roadForms={roadForms}
+                                roadForms={drawNumbers}
                               />
                             </div>
                           )}
@@ -1293,11 +1294,11 @@ function derivedRoad(
         bigEyeRoadObj &&
         Object.keys(updatedBigEyeRoadObj)[0] === currentLetterCurrentCol
       ) {
-        console.log(
-          "sssssssssss equal",
-          updatedBigEyeRoadObj[currentLetterCurrentCol],
-          JSON.stringify(bigEyeBoyArr)
-        );
+        // console.log(
+        //   "sssssssssss equal",
+        //   updatedBigEyeRoadObj[currentLetterCurrentCol],
+        //   JSON.stringify(bigEyeBoyArr)
+        // );
 
         bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
         console.log(
@@ -1307,11 +1308,11 @@ function derivedRoad(
         );
       } else {
         const firstValue = letter(Object.values(updatedBigEyeRoadObj)[0]);
-        console.log(
-          "ssssssssssss firstValue before",
-          firstValue,
-          JSON.stringify(bigEyeBoyArr)
-        );
+        // console.log(
+        //   "ssssssssssss firstValue before",
+        //   firstValue,
+        //   JSON.stringify(bigEyeBoyArr)
+        // );
         bigEyeBoyArr.push(firstValue);
         console.log(
           "sssssssss firstValue and after",

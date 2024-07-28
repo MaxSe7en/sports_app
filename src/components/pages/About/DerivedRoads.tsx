@@ -28,7 +28,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0); 
   const [scrollLeft, setScrollLeft] = useState(0);
-  // const cellData = data?.[form + "|" + card]?.tree || [];
+  // const cellData = useState(data?.[form + "|" + card]?.tree || []);
   const cellData = useMemo(() => data?.[form + "|" + card]?.tree || [], [data, form, card]);
   const height = 120;
   let x: any;
@@ -205,7 +205,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
 
         drawSvgOnCanvas(canvas, svgDataUrl, x, y, svgWidth, svgHeight);
       });
-
+      console.log("0000000000000000000000000000000000")
       if (isBlinking) {
         const iconX = width - 20; // Adjust the X position
         const iconY = height / 2 - 10; // Adjust the Y position
@@ -249,9 +249,9 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
         // drawAnimatedSvgOnCanvas(canvas, svgDataUrl, x, y, svgWidth, svgHeight);
       }
     }
-  }, [colWidth, isBlinking, roadForms, cellData]);
+  }, [colWidth, isBlinking, roadForms]);
 
-  return (
+  return ( 
     <div
       style={{
         overflowX: "auto",
