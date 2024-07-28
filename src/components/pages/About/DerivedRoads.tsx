@@ -26,7 +26,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
+  const [startX, setStartX] = useState(0); 
   const [scrollLeft, setScrollLeft] = useState(0);
   // const cellData = data?.[form + "|" + card]?.tree || [];
   const cellData = useMemo(() => data?.[form + "|" + card]?.tree || [], [data, form, card]);
@@ -35,7 +35,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   let y: any;
   let svgWidth: any;
   let svgHeight: any;
-  let fillStyle: any;
+  let fillStyle: any;   
 
   const minRequiredWidth = useMemo(() => {
     const minWidth = colWidth * 20 + 40; // 20px per item plus 40px for extra columns
@@ -161,7 +161,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
     );
 
     requestAnimationFrame(drawBlinkingCircle);
-  }
+  }  
 
   useEffect(() => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;
@@ -249,7 +249,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
         // drawAnimatedSvgOnCanvas(canvas, svgDataUrl, x, y, svgWidth, svgHeight);
       }
     }
-  }, [colWidth, isBlinking, roadForms]);
+  }, [colWidth, isBlinking, roadForms, cellData]);
 
   return (
     <div

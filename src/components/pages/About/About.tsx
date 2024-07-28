@@ -14,6 +14,10 @@ import MainRoad from "./MainRoad";
 
 function RoadBet() {
   const aaaa:any = [
+    [7, 7, 3, 0, 3], 
+    [7, 7, 3, 0, 0], 
+    [7, 7, 3, 0, 0], 
+    [7, 7, 3, 0, 0], 
     [7, 7, 3, 0, 0], 
     [7, 7, 3, 6, 6],
     [7, 7, 3, 6, 6],
@@ -170,19 +174,80 @@ function RoadBet() {
   }
   const [drawNumbers, setDrawNumbers] = useState([]);
   const [timeLeft, setTimeLeft] = useState(60);
+  // useEffect(() => {
+  //   const fetchDrawNumbers = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://www.easyopen1573.com/task/apis/road_draws.php?lottery_id=1"
+  //       );
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         console.log("-----------> ", data);
+  //         setDrawNumbers(aaaa.reverse()); // Assume 'drawnNumbers' is the key in the response data
+  //       } else {
+  //         console.error("Failed to fetch data");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+
+  //   // Fetch the data immediately on mount
+  //   fetchDrawNumbers();
+
+  //   // Set up the interval to fetch data every 60 seconds
+  //   const intervalId = setInterval(fetchDrawNumbers, 60000); // 60000 ms = 1 minute
+
+  //   // Clean up the interval on component unmount
+  //   return () => clearInterval(intervalId);
+  // }, []); // Empty dependency array ensures this runs once on mount and sets up the interval
+
+  const generateInitialDrawNumbers = () => {
+    const initialNumbers = [];
+    for (let i = 0; i < 100; i++) {
+      initialNumbers.push([
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+      ]);
+    }
+    return initialNumbers;
+  };
+
   useEffect(() => {
+    // Initialize with 100 draw numbers
+    setDrawNumbers(generateInitialDrawNumbers());
+
     const fetchDrawNumbers = async () => {
       try {
         const response = await fetch(
           "https://www.easyopen1573.com/task/apis/road_draws.php?lottery_id=1"
         );
-        if (response.ok) {
-          const data = await response.json();
-          console.log("-----------> ", data);
-          setDrawNumbers(aaaa.reverse()); // Assume 'drawnNumbers' is the key in the response data
-        } else {
-          console.error("Failed to fetch data");
-        }
+        // if (response.ok) {
+        //   const data = await response.json();
+        const newD = [
+          Math.floor(Math.random() * 10),
+          Math.floor(Math.random() * 10),
+          Math.floor(Math.random() * 10),
+          Math.floor(Math.random() * 10),
+          Math.floor(Math.random() * 10),
+        ];
+          console.log("---sssssss--------> ", newD);
+          setDrawNumbers((prevDrawNumbers:any) => {
+            
+            // Assuming 'drawnNumbers' is the key in the response data
+            const newDrawNumbers = [...prevDrawNumbers, newD];
+            if (newDrawNumbers.length > 100) {
+              // Remove the oldest numbers to maintain only 100
+              newDrawNumbers.shift();
+            }
+            return newDrawNumbers;
+          });
+        // } else {
+        //   console.error("Failed to fetch data");
+        // }
       } catch (error) {
         console.error("Error:", error);
       }
@@ -196,7 +261,8 @@ function RoadBet() {
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
-  }, []); // Empty dependency array ensures this runs once on mount and sets up the interval
+  }, []);
+
 
   useEffect(() => {
     // Decrease timeLeft by 1 every second
@@ -835,9 +901,11 @@ export function buildTree(
   });
 
   const bigBoy = buildDerivedRoadTree([...bigEyeBoyArr]);
-  const smallRoad = { tree: [], colWidth: 1 }; //buildDerivedRoadTree(smallRoadArr);
-  const cockroach = { tree: [], colWidth: 1 }; // buildDerivedRoadTree(cockroachArr);
+  const smallRoad = buildDerivedRoadTree(smallRoadArr);
+  const cockroach =  buildDerivedRoadTree(cockroachArr);
   // console.log("colwidth: ccccc", col, tree);
+//   { tree: [], colWidth: 1 }; //
+// { tree: [], colWidth: 1 }; //
   return {
     tree,
     percentage,
@@ -1219,40 +1287,40 @@ function derivedRoad(
         bigEyeRoadObj[nextLetterToBreakColumn] = "B";
       }
 
-      if (!isEmpty(updatedBigEyeRoadObj)) {
-        if (
-          bigEyeRoadObj &&
-          Object.keys(updatedBigEyeRoadObj)[0] === currentLetterCurrentCol
-        ) {
-          console.log(
-            "sssssssssss equal",
-            updatedBigEyeRoadObj[currentLetterCurrentCol],
-            JSON.stringify(bigEyeBoyArr)
-          );
+    }
+    if (!isEmpty(updatedBigEyeRoadObj)) {
+      if (
+        bigEyeRoadObj &&
+        Object.keys(updatedBigEyeRoadObj)[0] === currentLetterCurrentCol
+      ) {
+        console.log(
+          "sssssssssss equal",
+          updatedBigEyeRoadObj[currentLetterCurrentCol],
+          JSON.stringify(bigEyeBoyArr)
+        );
 
-          bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
-          console.log(
-            "sssssssss equal and after",
-            updatedBigEyeRoadObj[currentLetterCurrentCol],
-            JSON.stringify(bigEyeBoyArr)
-          );
-        } else {
-          const firstValue = letter(Object.values(updatedBigEyeRoadObj)[0]);
-          console.log(
-            "ssssssssssss firstValue before",
-            firstValue,
-            JSON.stringify(bigEyeBoyArr)
-          );
-          bigEyeBoyArr.push(firstValue);
-          console.log(
-            "sssssssss firstValue and after",
-            firstValue,
-            JSON.stringify(bigEyeBoyArr)
-          );
-        }
+        bigEyeBoyArr.push(updatedBigEyeRoadObj[currentLetterCurrentCol]);
+        console.log(
+          "sssssssss equal and after",
+          updatedBigEyeRoadObj[currentLetterCurrentCol],
+          JSON.stringify(bigEyeBoyArr)
+        );
       } else {
-        console.log("sssssssss it came here");
+        const firstValue = letter(Object.values(updatedBigEyeRoadObj)[0]);
+        console.log(
+          "ssssssssssss firstValue before",
+          firstValue,
+          JSON.stringify(bigEyeBoyArr)
+        );
+        bigEyeBoyArr.push(firstValue);
+        console.log(
+          "sssssssss firstValue and after",
+          firstValue,
+          JSON.stringify(bigEyeBoyArr)
+        );
       }
+    } else {
+      console.log("sssssssss it came here");
     }
   } else {
     console.log("sssssssss it came here 2");
@@ -1277,16 +1345,16 @@ function derivedRoad(
         smallRoadObj[nextLetterToBreakColumn] = "B";
       }
 
-      if (!isEmpty(updatedSmallRoadObj)) {
-        if (
-          smallRoadObj &&
-          Object.keys(updatedSmallRoadObj)[0] === currentLetterCurrentCol
-        ) {
-          smallRoadArr.push(updatedSmallRoadObj[currentLetterCurrentCol]);
-        } else {
-          const firstValue = letter(Object.values(updatedSmallRoadObj)[0]);
-          smallRoadArr.push(firstValue);
-        }
+    }
+    if (!isEmpty(updatedSmallRoadObj)) {
+      if (
+        smallRoadObj &&
+        Object.keys(updatedSmallRoadObj)[0] === currentLetterCurrentCol
+      ) {
+        smallRoadArr.push(updatedSmallRoadObj[currentLetterCurrentCol]);
+      } else {
+        const firstValue = letter(Object.values(updatedSmallRoadObj)[0]);
+        smallRoadArr.push(firstValue);
       }
     }
   }
@@ -1309,16 +1377,16 @@ function derivedRoad(
         cockroachObj[nextLetterToBreakColumn] = "B";
       }
 
-      if (!isEmpty(updatedCockroachObj)) {
-        if (
-          cockroachObj &&
-          Object.keys(updatedCockroachObj)[0] === currentLetterCurrentCol
-        ) {
-          cockroachArr.push(updatedCockroachObj[currentLetterCurrentCol]);
-        } else {
-          const firstValue = letter(Object.values(updatedCockroachObj)[0]);
-          cockroachArr.push(firstValue);
-        }
+    }
+    if (!isEmpty(updatedCockroachObj)) {
+      if (
+        cockroachObj &&
+        Object.keys(updatedCockroachObj)[0] === currentLetterCurrentCol
+      ) {
+        cockroachArr.push(updatedCockroachObj[currentLetterCurrentCol]);
+      } else {
+        const firstValue = letter(Object.values(updatedCockroachObj)[0]);
+        cockroachArr.push(firstValue);
       }
     }
   }
