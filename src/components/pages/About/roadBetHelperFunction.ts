@@ -1,3 +1,4 @@
+import { fnSelector } from "./road";
 
 
 export function getBigSmallForBall(ball: number) {
@@ -395,3 +396,379 @@ export function getLastArrayWithColWithoutA(
 
     return last || [0, 0, ""]; // Return the original array if no modification is needed.
 }
+
+
+
+/**
+ * Build a tree structure from draw numbers and analyze the results for a given form.
+ *
+ * @param drawNumbers - The array of draw numbers to analyze.
+ * @param place - The aspect of the draw numbers to analyze (e.g., "Sum").
+ * @param form - The form of analysis (e.g., "Big/Small").
+ * @returns An object containing the tree structure, percentage, column width, derived roads, and color information.
+ */
+
+export function buildTree(
+    drawNumbers: number[][],
+    place: string,
+    form: string,
+    lottery_id: string
+  ) {
+    const tree: number[][] = [];
+    const analyzedDrawNumbersResults = transpose(
+      fnSelector(drawNumbers, place, form, lottery_id)[form]
+    ); // analyzeDrawNumbers(drawNumbers, place)[form];//fnSelector(drawNumbers, place, form, lottery_id)[form]
+    console.log(
+      "analyzedResults-------------------??????",
+      analyzedDrawNumbersResults
+    );
+    let percentage = countOccurrences(analyzedDrawNumbersResults["newArr"], form);
+  
+    const bigEyeBoyArr: string[] = [];
+    const smallRoadArr: string[] = [];
+    const cockroachArr: string[] = [];
+    const bigEyeRoadObj: Record<string, any> = {};
+    const smallRoadObj: Record<string, any> = {};
+    const cockroachObj: Record<string, any> = {};
+  
+    let row = 0;
+    let col = 0;
+    let whenColIncreaseByMaxRows = 0;
+    const dua: Record<string, any> = {};
+    let currentHighestColumn = 0; //to help enforce that all plots are visible in the chart
+  
+    const img = analyzedDrawNumbersResults;
+    console.log("img----------------->", img);
+    img["newArr"].forEach((_value, i) => {
+      let previousLetter = img["newArr"][i - 1];
+      let currentLetter = img["newArr"][i];
+      let nextLetter = img["newArr"][i + 1];
+      let newItem: any = [];
+  
+      if (currentLetter !== previousLetter) {
+        col = whenColIncreaseByMaxRows;
+      } //&& currentLetter !== letterinobj && countsinobj >= 2 row++
+      if (previousLetter !== undefined && currentLetter !== previousLetter) {
+        // if(currentLetter !== img["consecutiveAs"][`${previousLetter}${i}`] && countsinobj >= 2)
+        if (
+          form === "Dragon/Tiger/Tie" &&
+          img["consecutiveAs"][`${previousLetter}${i}`] >= 2 &&
+          previousLetter === "D"
+        ) {
+          // alert(currentLetter)
+          row++;
+        } else {
+          row = 0;
+          col++;
+          if (row === 0) {
+            whenColIncreaseByMaxRows = col;
+          }
+        }
+      } else if (currentLetter === previousLetter) {
+        row++;
+  
+        let prevCol = col - 1;
+        const prev = dua[row + "|" + prevCol];
+  
+        if (prev === currentLetter && form !== "Dragon/Tiger/Tie") {
+          row--;
+          col++;
+        }
+      } else if (
+        currentLetter !== previousLetter &&
+        currentLetter !== nextLetter
+      ) {
+        col = 0;
+        whenColIncreaseByMaxRows = col;
+      }
+  
+      if (row > 5) {
+        row = 5;
+        col++;
+      }
+      // newItem = [row, col, currentLetter];
+      newItem.push(row, col, currentLetter !== undefined ? currentLetter : "");
+  
+      let duplicate = tree.some(
+        (item) => item[0] === newItem[0] && item[1] === newItem[1]
+      );
+  
+      if (duplicate) {
+        row--;
+        col++;
+        newItem = [row, col, currentLetter];
+      }
+  
+      dua[row + "|" + col] = currentLetter;
+      // console.log("indexof", img["indexOfA"])
+  
+      if (col > currentHighestColumn) {
+        currentHighestColumn = col;
+      }
+  
+      newItem = [row, col, img["indexOfA"].includes(i) ? "A" : currentLetter];
+  
+      tree.push(newItem);
+      derivedRoad(tree as [number, number, string][], whenColIncreaseByMaxRows, {
+        bigEyeRoadObj,
+        smallRoadObj,
+        cockroachObj,
+        bigEyeBoyArr,
+        smallRoadArr,
+        cockroachArr,
+      });
+    });
+  
+    const bigBoy = buildDerivedRoadTree([...bigEyeBoyArr]);
+    const smallRoad = buildDerivedRoadTree(smallRoadArr);
+    const cockroach = buildDerivedRoadTree(cockroachArr);
+    // console.log("colwidth: ccccc", col, tree);
+    //   { tree: [], colWidth: 1 }; //
+    // { tree: [], colWidth: 1 }; //
+    return {
+      tree,
+      percentage,
+      colWidth: currentHighestColumn,
+      bigBoy,
+      smallRoad,
+      cockroach,
+      nextColor: { bigEyeRoadObj, smallRoadObj, cockroachObj },
+    };
+  }
+  
+  /**
+   * Build a tree structure from a derived road sequence.
+   *
+   * @param road - The array representing the derived road sequence.
+   * @returns An object containing the tree structure and column width.
+   */
+  function buildDerivedRoadTree(road: string[]): {
+    tree: number[][];
+    colWidth: number;
+  } {
+    const tree: number[][] = [];
+    let row = 0;
+    let col = 0;
+    let whenColIncreaseByMaxRows = 0;
+    const dua: Record<string, string> = {};
+    let currentHighestColumn = 0;
+    road.forEach((currentLetter, i) => {
+      const previousLetter = road[i - 1];
+      const nextLetter = road[i + 1];
+      const newItem: any = [];
+      //   const newItem:  [number, number, string] = [0, 0, ""];
+  
+      if (currentLetter !== previousLetter) {
+        col = whenColIncreaseByMaxRows;
+      }
+  
+      if (previousLetter !== undefined && currentLetter !== previousLetter) {
+        row = 0;
+        col++;
+        if (row === 0) {
+          whenColIncreaseByMaxRows = col;
+        }
+      } else if (currentLetter === previousLetter) {
+        row++;
+  
+        const prevCol = col - 1;
+        const prev = dua[row + "|" + prevCol];
+  
+        if (prev === currentLetter) {
+          row--;
+          col++;
+        }
+      } else if (
+        currentLetter !== previousLetter &&
+        currentLetter !== nextLetter
+      ) {
+        col = 0;
+        whenColIncreaseByMaxRows = col;
+      }
+  
+      if (row > 5) {
+        row = 5;
+        col++;
+      }
+  
+      newItem.push(row, col, currentLetter);
+  
+      const duplicate = tree.some(
+        (item) => item[0] === newItem[0] && item[1] === newItem[1]
+      );
+  
+      if (duplicate) {
+        row--;
+        col++;
+        newItem[0] = row;
+        newItem[1] = col;
+      }
+      if (col > currentHighestColumn) {
+        currentHighestColumn = col;
+      }
+      dua[row + "|" + col] = currentLetter;
+  
+      tree.push(newItem);
+    });
+  
+    return { tree, colWidth: currentHighestColumn };
+  }
+  
+  /**
+   * Updates the state of various derived roads (Big Eye Boy, Small Road, and Cockroach Pig)
+   * based on the current and previous elements in the tree.
+   *
+   * @param tree - The array representing the game tree.
+   * @param col - The current column index in the tree.
+   * @param bigEyeBoyArr - An array to store Big Eye Boy values.
+   * @param smallRoadArr - An array to store Small Road values.
+   * @param cockcroachArr - An array to store Cockroach Pig values.
+   * @param bigEyeRoadObj - An object representing the state of the Big Eye Boy road.
+   * @param smallRoadObj - An object representing the state of the Small Road.
+   * @param cockroachObj - An object representing the state of the Cockroach Pig road.
+   */
+  
+  interface RoadObject {
+    [key: string]: string;
+  }
+  
+  interface DerivedRoadResult {
+    bigEyeRoadObj: RoadObject;
+    smallRoadObj: RoadObject;
+    cockroachObj: RoadObject;
+    bigEyeBoyArr: string[];
+    smallRoadArr: string[];
+    cockroachArr: string[];
+  }
+  
+  function derivedRoad(
+    tree: any,
+    col: any,
+    {
+      bigEyeRoadObj,
+      smallRoadObj,
+      cockroachObj,
+      bigEyeBoyArr,
+      smallRoadArr,
+      cockroachArr,
+    }: any
+  ) {
+    let getLastArrayWithCol2Var = getLastArrayWithColWithoutA(tree, col);
+    let currentLetterCurrentCol =
+      getLastArrayWithCol2Var != null && getLastArrayWithCol2Var[2]; // Current letter in the current column
+    let nextLetterToBreakColumn =
+      getLastArrayWithCol2Var != null && check[getLastArrayWithCol2Var[2]]; // Next letter to break the column
+  
+    let letter = (val: string) => (val === "R" ? "B" : "R");
+  
+    let updatedBigEyeRoadObj = { ...bigEyeRoadObj };
+    let updatedSmallRoadObj = { ...smallRoadObj };
+    let updatedCockroachObj = { ...cockroachObj };
+    let bigEyeBoy = getLastArrayWithColWithoutA(tree, col - 1); // for comparison purposes based on the bigEyeBoy rule
+    let smallRoad = getLastArrayWithColWithoutA(tree, col - 2); // for comparison purposes based on the smallRoad rule
+    let cockroach = getLastArrayWithColWithoutA(tree, col - 3); // for comparison purposes based on the cockroach rule
+    // console.log(
+    //   "indexof ssssssssssh ==========>xx",
+    //   JSON.stringify(bigEyeRoadObj),
+    //   JSON.stringify(updatedBigEyeRoadObj),
+    //   JSON.stringify(currentLetterCurrentCol),
+    //   JSON.stringify(getLastArrayWithCol2Var),
+    //   JSON.stringify(nextLetterToBreakColumn),
+    //   JSON.stringify(bigEyeBoy)
+    // );
+  
+    const bigEyeBoyParams = {
+      lastTreeBranchArray: getLastArrayWithCol2Var,
+      roadType: bigEyeBoy,
+      currentLetterCurrentCol,
+      roadTypeArray: bigEyeBoyArr,
+      updatedNextRoadColorPredictor: updatedBigEyeRoadObj,
+      roadPredictorObj: bigEyeRoadObj,
+      nextLetterToBreakColumn,
+      letter,
+    };
+  
+    const smallRoadParams = {
+      lastTreeBranchArray: getLastArrayWithCol2Var,
+      roadType: smallRoad,
+      currentLetterCurrentCol,
+      roadTypeArray: smallRoadArr,
+      updatedNextRoadColorPredictor: updatedSmallRoadObj,
+      roadPredictorObj: smallRoadObj,
+      nextLetterToBreakColumn,
+      letter,
+    };
+  
+    const cockroachParams = {
+      lastTreeBranchArray: getLastArrayWithCol2Var,
+      roadType: cockroach,
+      currentLetterCurrentCol,
+      roadTypeArray: cockroachArr,
+      updatedNextRoadColorPredictor: updatedCockroachObj,
+      roadPredictorObj: cockroachObj,
+      nextLetterToBreakColumn,
+      letter,
+    };
+  
+    roadMakerWithParams(bigEyeBoyParams);
+    roadMakerWithParams(smallRoadParams);
+    roadMakerWithParams(cockroachParams);
+  }
+  
+  function roadMakerWithParams(params: any) {
+    const {
+      lastTreeBranchArray,
+      roadType,
+      currentLetterCurrentCol,
+      roadTypeArray,
+      updatedNextRoadColorPredictor,
+      roadPredictorObj,
+      nextLetterToBreakColumn,
+      letter,
+    } = params;
+  
+    if (lastTreeBranchArray && roadType) {
+      if (currentLetterCurrentCol === "A") {
+        roadTypeArray.push(
+          updatedNextRoadColorPredictor[currentLetterCurrentCol]
+        );
+      } else if (lastTreeBranchArray[0] === roadType[0]) {
+        if (!Object.keys(roadPredictorObj).length) {
+          roadPredictorObj[nextLetterToBreakColumn] = "R";
+        } else {
+          Object.keys(roadPredictorObj).forEach(
+            (key) => delete roadPredictorObj[key]
+          );
+          roadPredictorObj[nextLetterToBreakColumn] = "R";
+        }
+      } else {
+        if (!Object.keys(roadPredictorObj).length) {
+          roadPredictorObj[nextLetterToBreakColumn] = "B";
+        } else {
+          Object.keys(roadPredictorObj).forEach(
+            (key) => delete roadPredictorObj[key]
+          );
+          roadPredictorObj[nextLetterToBreakColumn] = "B";
+        }
+      }
+      if (!isEmpty(updatedNextRoadColorPredictor)) {
+        if (
+          roadPredictorObj &&
+          Object.keys(updatedNextRoadColorPredictor)[0] ===
+            currentLetterCurrentCol
+        ) {
+          roadTypeArray.push(
+            updatedNextRoadColorPredictor[currentLetterCurrentCol]
+          );
+        } else {
+          const firstValue = letter(
+            Object.values(updatedNextRoadColorPredictor)[0]
+          );
+          roadTypeArray.push(firstValue);
+        }
+      }
+    }
+  }
+  
+
+

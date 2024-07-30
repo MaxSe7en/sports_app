@@ -11,7 +11,7 @@ type DerivedRoadsProps = {
   roadFormsColor?: string;
   roadForms?: string[];
 };
-
+ 
 const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   card,
   colWidth,
@@ -40,7 +40,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
   const minRequiredWidth = useMemo(() => {
     const minWidth = colWidth * 20 + 40; // 20px per item plus 40px for extra columns
     return minWidth;
-  }, [colWidth]);
+  }, [cellData, colWidth]);
 
   const width = colWidth < 6 ? 200 : minRequiredWidth;
 
@@ -131,7 +131,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
     if (canvas) {
       drawGrid(canvas); 
     }
-  }, [colWidth, drawGrid]);
+  }, [colWidth, drawGrid, cellData]);
 
   // function drawBlinkingCircle() {
   //   const canvas: any = canvasRef.current;
@@ -205,7 +205,7 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
 
         drawSvgOnCanvas(canvas, svgDataUrl, x, y, svgWidth, svgHeight);
       });
-      console.log("0000000000000000000000000000000000")
+      console.log("0000000000000000000000000000000000", derivedRoadType)
       if (isBlinking) {
         const iconX = width - 20; // Adjust the X position
         const iconY = height / 2 - 10; // Adjust the Y position
@@ -249,8 +249,8 @@ const DerivedRoads: React.FC<DerivedRoadsProps> = ({
         // drawAnimatedSvgOnCanvas(canvas, svgDataUrl, x, y, svgWidth, svgHeight);
       }
     }
-  }, [colWidth, isBlinking, roadForms]);
-
+  }, [cellData, isBlinking, roadForms]);
+ 
   return ( 
     <div
       style={{
