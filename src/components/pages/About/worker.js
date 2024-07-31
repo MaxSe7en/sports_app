@@ -25,7 +25,6 @@ self.onmessage = function (e) {
           let _smallRoad;
           let _nextColor;
   
-          // Assuming buildTree is a function you have defined elsewhere
           const regularTree = buildTree(drawNumbers, place, form, lottery_type_id.toString());
   
           trees = regularTree.tree;

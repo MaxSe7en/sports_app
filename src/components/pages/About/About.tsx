@@ -215,7 +215,7 @@ function RoadBet() {
           {
             headers: {
               "Content-Type": "application/json",
-              Token: "b934880ab85141c3a02be83cf4b24bcc1722337661177",
+              Token: "b6769948d31648c0b0c7930e0e588fbe1722418155779",
             },
             method: "GET",
           }
@@ -815,7 +815,7 @@ const generateInitialDrawNumbers = () => {
 //     // "http://192.168.1.40/task/chairman/api/v1/limvo/draw_data?drawInfo&lottery_id=1",
 //     "https://cdmapiaws.ujiew3n.com/coron/ticketmod/currentSaleIssue/list?ticketIds=45",
 //     {
-//       headers: { 'Content-Type': 'application/json', 'Token': "b934880ab85141c3a02be83cf4b24bcc1722337661177" },
+//       headers: { 'Content-Type': 'application/json', 'Token': "b6769948d31648c0b0c7930e0e588fbe1722418155779" },
 //       method: 'GET',
 //     }
 //   )
